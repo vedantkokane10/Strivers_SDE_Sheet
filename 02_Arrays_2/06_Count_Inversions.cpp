@@ -9,10 +9,15 @@ so if we have 2 arrays [2,4] and [1,3,5]
 
 while merging 2 arrays, using i,j pointers 
 if leftArray[i] > rightArray[j]
-then all the elements from 0 to j in rightArray are also less than leftArray[i] so that pairs also count
-so we update the answer variable with the length of rightArray ((mid - low + 1) - left).
+then all the elements from to the right of ith element in the leftArray are also greater than rightArray[j], so that pairs also count
+so we update the answer variable with the length of leftArray ((mid - low + 1) - left).
 
-For instance for 4 in leftArray the j will point to 3 in rightArray, so 4 can form with all elements before 3 (like (4,1)) and with 3. 
+For instance for 2 in leftArray and j=0 which will point to 1 in rightArray, so all elements to right of 2 can form pair with 1,
+hence 4 in leftArray can also form a pair with 1. 
+Therefore ans += 2 (2,4)
+
+Similarly for 4 in leftArray when j=1 which will point to 3 in rightArray, all elements right to 4 can also form pair with 3,
+since in this case 4 is last element in leftArray only it can form a pair with 3.
 */
 
 long long ans = 0;
