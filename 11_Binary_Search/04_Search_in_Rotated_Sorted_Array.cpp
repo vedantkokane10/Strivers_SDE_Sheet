@@ -16,39 +16,34 @@ Example 3:
 Input: nums = [1], target = 0
 Output: -1
 
-Approach - Find the privot element and apply binary search on the left half of pivot element and right half of the pivot element.
 */
 
 
-int bs(vector<int>& nums, int target,int s,int e){
-    while(s <= e){
-        int mid = s + (e-s)/2;
+int search(vector<int>& nums, int target) {
+    int mn = INT_MAX;
+    int low = 0;
+    int high = nums.size()-1;
+    while(low <= high){
+        int mid = low + (high-low)/2;
         if(nums[mid] == target){
             return mid;
         }
-        else if(nums[mid] < target){
-            s = mid+1;
+        if(nums[low] <= nums[mid]){
+            if(nums[low] <= target && target <= nums[mid]){
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
         }
-        else{
-            e = mid-1;
+        else if(nums[mid] <= nums[high]){
+            if(nums[mid] <= target && target <= nums[high]){
+                low = mid+1;  
+            }
+            else{
+                high = mid-1;
+            }
         }
     }
     return -1;
-}
-
-int search(vector<int>& nums, int target) {
-    int pivot = -1;
-    int n = nums.size()-1;
-    for(int i=0;i<nums.size()-1;i++){
-        if(nums[i] > nums[i+1]){
-            pivot = i;
-        }
-    }
-    if(pivot == -1){
-        return bs(nums,target,0,n);
-    }
-    if(bs(nums,target,0,pivot) != -1){
-        return bs(nums,target,0,pivot);
-    }
-    return bs(nums,target,pivot+1,n);
 }
